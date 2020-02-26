@@ -170,3 +170,16 @@ info [Wed Feb 26 2020 22:44:18 GMT+0200 (Eastern European Standard Time)]  [GET]
 
 
 
+
+info [Wed Feb 26 2020 22:56:44 GMT+0200 (Eastern European Standard Time)]  [GET] : Accessing route: /generate
+info [Wed Feb 26 2020 22:56:44 GMT+0200 (Eastern European Standard Time)]  [GET] : Accessing route: /ChuckNorris
+info [Wed Feb 26 2020 22:56:51 GMT+0200 (Eastern European Standard Time)]  [GET][200] : Fetching successfully url: https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com/jokes/random in 7075ms
+info [Wed Feb 26 2020 22:56:51 GMT+0200 (Eastern European Standard Time)]  [GET] : Accessing route: /numbers
+info [Wed Feb 26 2020 22:57:05 GMT+0200 (Eastern European Standard Time)]  [GET] : Fetching url: https://numbersapi.p.rapidapi.com/6/12/date?fragment=true&json=true in 13724ms
+info [Wed Feb 26 2020 22:57:05 GMT+0200 (Eastern European Standard Time)]  [GET] : Accessing route: /definition/when
+info [Wed Feb 26 2020 22:58:45 GMT+0200 (Eastern European Standard Time)]  [GET] : Accessing route: /generate
+info [Wed Feb 26 2020 22:58:45 GMT+0200 (Eastern European Standard Time)]  [GET] : Accessing route: /ChuckNorris
+info [Wed Feb 26 2020 22:58:47 GMT+0200 (Eastern European Standard Time)]  [GET][200] : Fetching successfully url: https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com/jokes/random in 1548ms
+info [Wed Feb 26 2020 22:58:47 GMT+0200 (Eastern European Standard Time)]  [GET] : Accessing route: /numbers
+info [Wed Feb 26 2020 22:58:49 GMT+0200 (Eastern European Standard Time)]  [GET] : Fetching url: https://numbersapi.p.rapidapi.com/6/12/date?fragment=true&json=true in 2074ms
+info [Wed Feb 26 2020 22:58:49 GMT+0200 (Eastern European Standard Time)]  [GET] : Accessing route: /definition/will
