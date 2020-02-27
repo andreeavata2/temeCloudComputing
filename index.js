@@ -11,20 +11,20 @@ const lineReader = require('line-reader');
 // app.use(Express.static("public"))
 
 
-app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts/' }))
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs')
+app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts/' }));
+app.set('view engine', 'hbs');
 
 
 
 app.get('/', (req, res) => {
-    logger.info(`[${req.method}] : Accessing route: ${req.url}`);
+    logger.info(`[${req.method}][${res.statusCode}] : Accessing route: ${req.url}`);
     // res.sendFile('public/index.html', { root: __dirname });
     res.render('index', { name: 'andreea' })
 })
 
 app.get('/numbers', async(req, res) => {
-    logger.info(`[${req.method}] : Accessing route: ${req.url}`);
+    logger.info(`[${req.method}][${res.statusCode}] : Accessing route: ${req.url}`);
     const options = {
         headers: {
             'x-rapidapi-host': endpoints.numbersAPI.split("://")[1],
@@ -39,7 +39,7 @@ app.get('/numbers', async(req, res) => {
         const fetch_response = await fetch(url, options);
         const jsonResponse = await fetch_response.json();
         let dateEnd = new Date() - dateStart;
-        logger.info(`[${req.method}] : Fetching url: ${url} in ${dateEnd}ms`);
+        logger.info(`[${req.method}][${res.statusCode}] : Fetching url: ${url} in ${dateEnd} ms`);
         res.json(jsonResponse);
     } catch (error) {
         logger.info(`[ERROR][${req.method}][${res.statusCode}] : Fetching failed at  ${req.url}`);
@@ -48,7 +48,7 @@ app.get('/numbers', async(req, res) => {
 });
 
 app.get('/ChuckNorris', async(req, res) => {
-    logger.info(`[${req.method}] : Accessing route: ${req.url}`);
+    logger.info(`[${req.method}][${res.statusCode}] : Accessing route: ${req.url}`);
     const options3 = {
         headers: {
             'x-rapidapi-host': endpoints.chuckAPI.split("://")[1],
@@ -64,7 +64,7 @@ app.get('/ChuckNorris', async(req, res) => {
         const fetch_response = await fetch(url, options3);
         const json = await fetch_response.json();
         let dateEnd = new Date() - dateStart;
-        logger.info(`[${req.method}][${res.statusCode}] : Fetching successfully url: ${url} in ${dateEnd}ms`);
+        logger.info(`[${req.method}][${res.statusCode}] : Fetching successfully url: ${url} in ${dateEnd} ms`);
         res.json(json);
     } catch (error) {
         logger.info(`[ERROR][${req.method}][${res.statusCode}] : Fetching failed at url: ${req.url}`);
@@ -73,7 +73,7 @@ app.get('/ChuckNorris', async(req, res) => {
 });
 
 app.get('/definition/:term?', async(req, res) => {
-    logger.info(`[${req.method}] : Accessing route: ${req.url}`);
+    logger.info(`[${req.method}][${res.statusCode}] : Accessing route: ${req.url}`);
     let term = "default";
     if (req.params.term) {
         term = req.params.term;
@@ -86,10 +86,12 @@ app.get('/definition/:term?', async(req, res) => {
     };
     try {
         // const url = 'https://mashape-community-urban-dictionary.p.rapidapi.com/define?term=want';
+        let dateStart = new Date();
         const url = `${endpoints.definitionAPI}/define?term=${term}`;
-
         const fetch_response = await fetch(url, options2);
         const json = await fetch_response.json();
+        let dateEnd = new Date() - dateStart;
+        logger.info(`[${req.method}][${res.statusCode}] : Fetching successfully url: ${url} in ${dateEnd} ms`);
         res.json(json);
     } catch (error) {
         logger.info(`[ERROR][${req.method}][${res.statusCode}] : Fetching failed at url: ${req.url}`);
@@ -104,9 +106,9 @@ app.get('/metrix', async(req, res) => {
     let aa = await lineReader.eachLine(fileName, function(line, last) {
         if (line)
             res1.push(line);
-        // do whatever you want with line...
         if (last) {
-            res.json({ res1 })
+            // res.json({ res1 })
+            res.render('metrix', { res: res1 });
         }
     });
 
@@ -141,7 +143,6 @@ app.get('/generate', async(req, res) => {
         while (responseNumberFromNumbersAPI > arrayOfWordFromChuck.length) {
             responseNumberFromNumbersAPI /= 2;
         }
-
         const responseValueFromChuck = arrayOfWordFromChuck[responseNumberFromNumbersAPI];
         // console.log('Getting definitions for word:', responseValueFromChuck)
 
@@ -158,32 +159,19 @@ app.get('/generate', async(req, res) => {
 
         finalResponseForClient = responseFromDefinition.list[randomNumber];
         // res.json({ data: finalResponseForClient });
-        res.render('definition', { definition: finalResponseForClient })
+        res.render('definition', { definition: finalResponseForClient, word: finalResponseForClient, author: finalResponseForClient })
     } catch (error) {
         logger.info(`[ERROR][${req.method}][${res.statusCode}] : Fetching failed at url: ${req.url}`);
         res.json({ err: error })
     }
-
-
-    // res.json({ msg: "sdfcvsdfs" })
 })
-
-// // middleware for 500 - server error
-// app.use((err, req, res, next) => {
-//     res.status(500).json({ msg: 'sad' });
-//     next();
-// })
-
-
-
 
 // middleware for 404 not found - error codes
 app.use((req, res, next) => {
-    res.sendFile('public/notFound.html', { root: __dirname });
+    // res.sendFile('public/notFound.html', { root: __dirname });
+    res.render('notFound', { msg: '404 - Not Found Page' });
 })
-
 
 app.listen(PORT, () => {
     console.log(`Server is running at port: ${PORT}`);
-    // console.log('Server is running at port:', PORT);
 })

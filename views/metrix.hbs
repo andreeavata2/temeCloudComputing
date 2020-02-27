@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+body{
+    background-color: rgb(162, 176, 201);
+}
+.button {
+  border: none;
+  color: black;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border: 2px solid black;
+}
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/generate" class="button"> Back </a>
+    <ul>
+        {{#each res}}
+            <li>
+                {{this}}
+            </li>
+        {{/each}}
+    </ul>
+</body>
+</html>
