@@ -1,0 +1,9 @@
+declare module 'react-simple-parallax';
+declare module 'classnames';
+declare module 'react-scrollspy';
+declare module 'react-scroll';
+declare module 'reactjs-image-gallery';
+declare module 'datatables';
+declare module 'google-maps-react';
+declare module 'import-scripts';
+declare module 'recompose';
